@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  pymc_gpu:
+    build: 
+      dockerfile: ./Dockerfile.gpu
+    volumes:
+      - .:/usr/app
+    # run continuously in background
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      # Jupyter
+      - 8888:8888
+      # Dask cluster
+      - 8787:8787
+      # Tensorboard
+      - 8686:8686
+      - 6006:6006
+      # MLFlow
+      - 5000:5000
+    expose:
+      - 5000
+    command:  bash -c "nohup poetry run poe track & poetry run poe jn & tail -f /dev/null"
+    environment:
+      - TESTING=0
+      - LOCAL_DEV=1
+      - MLFLOW_TRACKING_URI=http://0.0.0.0:5000
+    container_name: pymc_gpu_container
+  # pymc_cpu:
+  #   build: 
+  #     dockerfile: ./Dockerfile.cpu
+  #   volumes:
+  #     - .:/usr/app
+  #   ports:
+  #     # Jupyter
+  #     - 8888:8888
+  #     # Dask cluster
+  #     - 8787:8787
+  #     # Tensorboard
+  #     - 8686:8686
+  #     - 6006:6006
+  #     # MLFlow
+  #     - 5000:5000
+  #   expose:
+  #     - 5000
+  #   command:  bash -c "nohup poetry run poe track & poetry run poe jn & tail -f /dev/null"
+  #   environment:
+  #     - TESTING=0
+  #     - LOCAL_DEV=1
+  #     - MLFLOW_TRACKING_URI=http://0.0.0.0:5000
+  #   container_name: pymc_cpu_container

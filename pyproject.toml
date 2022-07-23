@@ -1,0 +1,115 @@
+[tool.poetry]
+name = "dev"
+version = "0.1.0"
+description = ""
+authors = ["https://github.com/pymc-devs/pymc-resources AUTHORS"]
+
+[tool.poe.tasks]
+track = "mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 0.0.0.0"                           
+jn = "jupyter-notebook --no-browser --allow-root --ip 0.0.0.0 --port 8888"
+
+[tool.poetry.dependencies]
+python = "3.9.5"
+python-dotenv = "*"
+pydantic = "*"
+xarray = "2022.3.0"
+dask = "2022.6.0"
+distributed = "2022.6.0"
+pymc = "^4.1"
+# for data module
+tensorflow = "2.9.0"
+tensorflow-addons = "0.17.0"
+tensorflow-datasets = "^4.6.0"
+# why the hell not
+flax = "*"
+zarr = "*"
+albumentations = "1.1.0"
+mlflow = "*"
+pandas = "*"
+protobuf = "^3.20"
+gin-config = "*"
+poethepoet = "*"
+mkl = "*"
+mkl-service = "*"
+watermark = "*"
+aeppl = "*"
+
+[tool.poetry.dev-dependencies]
+jupyter = "*"
+jupyterlab = "*"
+plotly = "*"
+seaborn = "*"
+matplotlib = "*"
+jupyter_contrib_nbextensions = "*"
+jupyterthemes = "*"
+pytest = "*"
+flake8 = "*"
+pylint = "*"
+pytest-cov = "*"
+arviz = "*"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+# https://github.com/timothycrosley/isort
+# https://github.com/timothycrosley/isort/wiki/isort-Settings
+line_length = 88
+indent = '    '
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+
+[tool.coverage.paths]
+source = ["src/", "*/site-packages/"]
+
+[tool.coverage.run]
+omit = [".*", "*/site-packages/*"]
+
+[tool.coverage.report]
+fail_under = 50
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    'if __name__ == "__main__":']
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
+[tool.pylint.MASTER]
+init-hook='import sys; sys.path.append("/usr/app"); sys.path.append("/usr/app/test")'
+[tool.pylint.format]
+max-line-length = 88
+[tool.pylint.basic]
+variable-rgx = "[a-z_][a-z0-9_]{0,40}$"
+[tool.pylint.global]
+# ignoring missing module and missing class docstring errors
+disable = ["C0114", "C0115", "W0621", "R0903", "R0913", "R0801", "W0212", "W1508", "W1203"]
+output-format = "colorized"
+fail-under = 8
+extension-pkg-whitelist="cv2,pydantic"
