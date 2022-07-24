@@ -29,6 +29,7 @@ services:
     command:  bash -c "nohup poetry run poe track & poetry run poe jn & tail -f /dev/null"
     environment:
       - TESTING=0
+      - TF_CPP_MIN_LOG_LEVEL=0
       - LOCAL_DEV=1
       - MLFLOW_TRACKING_URI=http://0.0.0.0:5000
     container_name: pymc_gpu_container

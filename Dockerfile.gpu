@@ -1,5 +1,5 @@
 # python 3.9
-FROM nvidia/cuda:11.3.0-cudnn8-runtime-ubuntu20.04
+FROM nvidia/cuda:11.4.0-cudnn8-runtime-ubuntu20.04
 
 ENV YOUR_ENV="dev" \
   PYTHONDONTWRITEBYTECODE=1 \
@@ -21,18 +21,9 @@ RUN apt update \
   && apt -y install netcat gcc curl make openssl systemd git build-essential \
     curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
     libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev \
+#    cuda-libraries-11-3 cuda-libraries-dev-11-3 cuda-tools-11-3 cuda-documentation-11-3 \
+#    cuda-samples-11-3 cuda-toolkit-11-3 libcublas-11-3 libcublas-dev-11-3 \
   && apt clean
-
-# openCV dependencies
-RUN apt update && apt install libaom0 libatlas3-base libavcodec58 libavformat58 libavutil56 libbluray2 \
-    libcairo2 libchromaprint1 libcroco3 libdatrie1 libdrm2 libfontconfig1 libgdk-pixbuf2.0-0 \
-    libgfortran5 libgme0 libgraphite2-3 libgsm1 libharfbuzz0b libilmbase24 libjbig0 libmp3lame0 libmpg123-0 libogg0 \
-    libopenexr24 libopenjp2-7 libopenmpt0 libopus0 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpixman-1-0 librsvg2-2 \
-    libshine3 libsnappy1v5 libsoxr0 libspeex1 libssh-gcrypt-4 libswresample3 libswscale5 libthai0 libtheora0 libtiff5 libtwolame0 libva-drm2 \
-    libva-x11-2 libva2 libvdpau1 libvorbis0a libvorbisenc2 libvorbisfile3  libwavpack1 libwebp6 libwebpmux3 libx264-155 \
-    libxcb-render0 libxcb-shm0 libxfixes3 libxrender1 libxvidcore4 libzvbi0 \
-    libcodec2-0.9 libvpx6 libx265-179 -y \
-    && apt clean -y
 
 # install NVIDIA driver version in container2
 ENV NVIDIA_DRIVER_VERSION 495
