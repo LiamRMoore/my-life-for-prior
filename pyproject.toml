@@ -33,6 +33,7 @@ mkl = "*"
 mkl-service = "*"
 watermark = "*"
 aeppl = "*"
+jax = {extras = ["cuda11_cudnn82"], version = "^0.3.15"}
 
 [tool.poetry.dev-dependencies]
 jupyter = "*"
