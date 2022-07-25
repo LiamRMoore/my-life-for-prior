@@ -24,8 +24,8 @@ services:
       #- 6006:6006
       # MLFlow
       #- 5000:5000
-    expose:
-      - 5000
+    #expose:
+    #  #- 5000
     command:  bash -c "nohup poetry run poe jn & tail -f /dev/null"
     #command:  bash -c "nohup poetry run poe track & poetry run poe jn & tail -f /dev/null"
     environment:
