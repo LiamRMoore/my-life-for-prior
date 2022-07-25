@@ -30,6 +30,7 @@ services:
     environment:
       - TESTING=0
       - TF_CPP_MIN_LOG_LEVEL=0
+      - CFLAGS=-fPIC
       - LOCAL_DEV=1
       - MLFLOW_TRACKING_URI=http://0.0.0.0:5000
     container_name: pymc_gpu_container
