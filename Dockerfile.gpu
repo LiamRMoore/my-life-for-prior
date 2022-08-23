@@ -22,8 +22,6 @@ RUN apt update \
   && apt -y install netcat gcc curl make openssl systemd git build-essential \
     curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
     libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev \
-#    cuda-libraries-11-3 cuda-libraries-dev-11-3 cuda-tools-11-3 cuda-documentation-11-3 \
-#    cuda-samples-11-3 cuda-toolkit-11-3 libcublas-11-3 libcublas-dev-11-3 \
   && apt clean
 
 # install NVIDIA driver version in container2
